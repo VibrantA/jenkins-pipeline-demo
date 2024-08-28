@@ -11,28 +11,28 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'
-                bat 'mvn clean package'  // Using Maven for building the project
+                bat 'bat clean package'  // Using Maven for building the project
             }
         }
         
         stage('Unit and Integration Tests') {
             steps {
                 echo 'Running Unit and Integration Tests...'
-                bat 'mvn test'  // Run unit and integration tests
+                bat 'bat test'  // Run unit and integration tests
             }
         }
         
         stage('Code Analysis') {
             steps {
                 echo 'Performing Code Analysis...'
-                bat 'mvn sonar:sonar'  // Using SonarQube for code analysis
+                bat 'bat sonar:sonar'  // Using SonarQube for code analysis
             }
         }
         
         stage('Security Scan') {
             steps {
                 echo 'Running Security Scan...'
-                bat 'mvn dependency-check:check'  // Using OWASP Dependency Check for security scanning
+                bat 'bat dependency-check:check'  // Using OWASP Dependency Check for security scanning
             }
         }
         
@@ -46,7 +46,7 @@ pipeline {
         stage('Integration Tests on Staging') {
             steps {
                 echo 'Running Integration Tests on Staging...'
-                bat 'mvn integration-test'  // Run tests on the staging environment
+                bat 'bat integration-test'  // Run tests on the staging environment
             }
         }
         
