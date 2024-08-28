@@ -7,54 +7,54 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'
-                sh 'mvn clean package'  // Using Maven for building the project
+                bat 'mvn clean package'  // Using Maven for building the project
             }
         }
         
         stage('Unit and Integration Tests') {
             steps {
                 echo 'Running Unit and Integration Tests...'
-                sh 'mvn test'  // Run unit and integration tests
+                bat 'mvn test'  // Run unit and integration tests
             }
         }
         
         stage('Code Analysis') {
             steps {
                 echo 'Performing Code Analysis...'
-                sh 'mvn sonar:sonar'  // Using SonarQube for code analysis
+                bat 'mvn sonar:sonar'  // Using SonarQube for code analysis
             }
         }
         
         stage('Security Scan') {
             steps {
                 echo 'Running Security Scan...'
-                sh 'mvn dependency-check:check'  // Using OWASP Dependency Check for security scanning
+                bat 'mvn dependency-check:check'  // Using OWASP Dependency Check for security scanning
             }
         }
         
         stage('Deploy to Staging') {
             steps {
                 echo 'Deploying to Staging...'
-                sh 'scp target/*.jar user@staging-server:/path/to/deploy'  // Example deployment command
+                bat 'scp target/*.jar user@staging-server:/path/to/deploy'  // Example deployment command
             }
         }
         
         stage('Integration Tests on Staging') {
             steps {
                 echo 'Running Integration Tests on Staging...'
-                sh 'mvn integration-test'  // Run tests on the staging environment
+                bat 'mvn integration-test'  // Run tests on the staging environment
             }
         }
         
         stage('Deploy to Production') {
             steps {
                 echo 'Deploying to Production...'
-                sh 'scp target/*.jar user@production-server:/path/to/deploy'  // Example deployment command
+                bat 'scp target/*.jar user@production-server:/path/to/deploy'  // Example deployment command
             }
         }
     }
     
-   post {
+    post {
         success {
             emailext(
                 subject: "Test Stage Passed",
