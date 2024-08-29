@@ -39,7 +39,7 @@ pipeline {
         stage('Deploy to Staging') {
             steps {
                 echo 'Deploying to Staging...'
-                bat 'scp target/*.jar user@staging-server:/path/to/deploy'  // Example deployment command
+                //bat 'scp target/*.jar user@staging-server:/path/to/deploy'  // Example deployment command
                 failure {
                     mail to: "vibrant.subbedl@gmail.com",
                     subject: "Test Stage Failed",
