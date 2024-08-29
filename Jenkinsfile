@@ -1,5 +1,5 @@
 pipeline {
-    //Tristan Venter, For SIT223 - Professional Practice in IT
+    //By Tristan Venter, For SIT223 - Professional Practice in IT
     //Task 6.1P
     agent any
 
@@ -25,6 +25,7 @@ pipeline {
         stage('Code Analysis') {
             steps {
                 echo 'Performing Code Analysis...'
+                //sh 'sonar:sonar'  // Using SonarQube for code analysis
             }
         }
         
@@ -38,7 +39,7 @@ pipeline {
         stage('Deploy to Staging') {
             steps {
                 echo 'Deploying to Staging...'
-                bat 'scp target/*.jar user@staging-server:/path/to/deploy'  // Example deployment command
+                //bat 'scp target/*.jar user@staging-server:/path/to/deploy'  // Example deployment command
             }
         }
         
@@ -52,25 +53,21 @@ pipeline {
         stage('Deploy to Production') {
             steps {
                 echo 'Deploying to Production...'
-                bat 'scp target/*.jar user@production-server:/path/to/deploy'  // Example deployment command
+                //bat 'scp target/*.jar user@production-server:/path/to/deploy'  // Example deployment command
             }
         }
     }
     
     post {
         success {
-            emailext(
+                mail to: "vibrant.subbedl@gmail.com",
                 subject: "Test Stage Passed",
                 body: "The test stage completed successfully.",
-                recipientProviders: [[$class: 'DevelopersRecipientProvider']]
-            )
         }
         failure {
-            emailext(
+                mail to: "vibrant.subbedl@gmail.com",
                 subject: "Test Stage Failed",
                 body: "The test stage failed. Please check the Jenkins logs.",
-                recipientProviders: [[$class: 'DevelopersRecipientProvider']]
-            )
         }
     }
 }
