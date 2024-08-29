@@ -1,5 +1,5 @@
 pipeline {
-    //Tristan Venter, For SIT223 - Professional Practice in IT
+    //By Tristan Venter, For SIT223 - Professional Practice in IT
     //Task 6.1P
     agent any
 
@@ -39,7 +39,12 @@ pipeline {
         stage('Deploy to Staging') {
             steps {
                 echo 'Deploying to Staging...'
-                //bat 'scp target/*.jar user@staging-server:/path/to/deploy'  // Example deployment command
+                bat 'scp target/*.jar user@staging-server:/path/to/deploy'  // Example deployment command
+                failure {
+                    mail to: "vibrant.subbedl@gmail.com",
+                    subject: "Test Stage Failed",
+                    body: "The test stage failed. Please check the Jenkins logs."
+                 }
             }
         }
         
