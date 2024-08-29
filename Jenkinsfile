@@ -62,12 +62,12 @@ pipeline {
         success {
                 mail to: "vibrant.subbedl@gmail.com",
                 subject: "Test Stage Passed",
-                body: "The test stage completed successfully.",
+                body: "The test stage completed successfully."
         }
         failure {
                 mail to: "vibrant.subbedl@gmail.com",
                 subject: "Test Stage Failed",
-                body: "The test stage failed. Please check the Jenkins logs.",
+                body: "The test stage failed. Please check the Jenkins logs."
         }
     }
 }
