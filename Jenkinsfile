@@ -1,5 +1,5 @@
 pipeline {
-    //By Tristan Venter, For SIT223 - Professional Practice in IT
+    //Tristan Venter, For SIT223 - Professional Practice in IT
     //Task 6.1P
     agent any
 
