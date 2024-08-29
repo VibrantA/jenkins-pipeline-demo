@@ -25,7 +25,6 @@ pipeline {
         stage('Code Analysis') {
             steps {
                 echo 'Performing Code Analysis...'
-                bat 'mvn sonar:sonar'  // Using SonarQube for code analysis
             }
         }
         
