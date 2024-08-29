@@ -40,11 +40,6 @@ pipeline {
             steps {
                 echo 'Deploying to Staging...'
                 //bat 'scp target/*.jar user@staging-server:/path/to/deploy'  // Example deployment command
-                if failure {
-                    mail to: "vibrant.subbedl@gmail.com",
-                    subject: "Test Stage Failed",
-                    body: "The test stage failed. Please check the Jenkins logs."
-                 }
             }
         }
         
