@@ -1,7 +1,7 @@
 pipeline {
     agent any
 
-     tools {
+    tools {
         maven 'Maven' 
     }
     
@@ -51,13 +51,12 @@ pipeline {
         stage('Deploy to Production') {
             steps {
                 echo 'Using Maven -> Deploying to Production...'
-                //bat 'scp target/*.jar JohnDoe@git-server:/path/to/deploy'  // Example deployment command (Using Maven and Secure Copy Protocol (SCP) to send the project to a remote server
+                //bat 'scp target/*.jar JohnDoe@git-server:/path/to/deploy'  // Example deployment command (Using Maven and Secure Copy Protocol (SCP) to send the project to a remote server)
             }
         }
     }
     
-   post {
-        post {
+    post {
         always {
             script {
                 def currentBuildLog = currentBuild.rawBuild.getLog(100).join("\n")
@@ -69,5 +68,4 @@ pipeline {
             }
         }
     }
-}
 }
