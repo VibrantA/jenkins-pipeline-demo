@@ -57,10 +57,11 @@ pipeline {
     }
     
    post {
+        post {
         always {
             script {
                 def currentBuildLog = currentBuild.rawBuild.getLog(100).join("\n")
-                emailext (
+                mail (
                     subject: "${currentBuild.fullDisplayName} - Build #${currentBuild.number} - ${currentBuild.result}",
                     body: "Here is the build log:\n\n${currentBuildLog}",
                     to: 'vibrant.subbedl@gmail.com'
