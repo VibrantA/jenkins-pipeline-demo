@@ -9,7 +9,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Using Maven to Build Project...'
-                bat 'mvn clean package'  // Using Maven for building the project
+                bat 'mvn clean package'  // Using Maven for building the project (Testing)
             }
         }
         
