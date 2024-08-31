@@ -58,19 +58,18 @@ pipeline {
     
     post {
         always {
+            // Capture the build log without using getRawBuild
             script {
-                // Capture the console output and store it in a variable
-                def buildLog = currentBuild.rawBuild.getLog(1000).join('\n')
+                def buildLog = Jenkins.instance.getItemByFullName(env.JOB_NAME).getBuildByNumber(env.BUILD_NUMBER.toInteger()).getLog()
                 
-                // Send an email with the entire log as the body
-                emailext(
-                    subject: "Pipeline Build: ${currentBuild.currentResult} - ${env.JOB_NAME} ${env.BUILD_NUMBER}",
+                emailext (
+                    subject: "Build #${env.BUILD_NUMBER} - ${currentBuild.currentResult}",
                     body: """<p>Build Status: ${currentBuild.currentResult}</p>
                              <p>Job: ${env.JOB_NAME} - Build #: ${env.BUILD_NUMBER}</p>
                              <p>Build Log:</p>
                              <pre>${buildLog}</pre>""",
                     mimeType: 'text/html',
-                    to: "vibrant.subbedl@gmail.com"
+                    to: "your.email@example.com"
                 )
             }
         }
