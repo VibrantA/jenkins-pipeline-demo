@@ -56,15 +56,14 @@ pipeline {
         }
     }
     
-    post {
+   post {
         always {
             script {
+                def currentBuildLog = currentBuild.rawBuild.getLog(100).join("\n")
                 emailext (
-                    to: "vibrant.subbedl@gmail.com",
-                    subject: "Jenkins Build #${env.BUILD_NUMBER} - ${currentBuild.currentResult}",
-                    body: """Build #${env.BUILD_NUMBER} has completed with status: ${currentBuild.currentResult}. Please find the attached log file.""",
-                    attachmentsPattern: 'build.log',
-                    mimeType: 'text/plain'
+                    subject: "${currentBuild.fullDisplayName} - Build #${currentBuild.number} - ${currentBuild.result}",
+                    body: "Here is the build log:\n\n${currentBuildLog}",
+                    to: 'vibrant.subbedl@gmail.com'
                 )
             }
         }
