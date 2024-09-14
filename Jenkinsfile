@@ -22,7 +22,7 @@ pipeline {
         stage('Code Analysis') {
             steps {
                 echo 'Using Sonar to Perform Code Analysis...'
-                //sh 'sonar:sonar' // Here we would use SonarQube for code analysis
+                // Uncomment and configure as needed: sh 'sonar:sonar'
             }
         }
 
@@ -36,7 +36,7 @@ pipeline {
         stage('Deploy to Staging') {
             steps {
                 echo 'Using Maven -> Deploying to Staging...'
-                //bat 'scp target/*.jar user@staging-server:/path/to/deploy' // Example deployment command
+                // Example deployment command, configure as needed: bat 'scp target/*.jar user@staging-server:/path/to/deploy'
             }
         }
 
@@ -50,8 +50,7 @@ pipeline {
         stage('Deploy to Production') {
             steps {
                 echo 'Using Maven -> Deploying to Production...'
-                //bat 'scp target/*.jar JohnDoe@git-server:/path/to/deploy' // Example deployment command (Using Maven and Secure Copy Protocol (SCP) to
-                send the project to a remote server)
+                // Example deployment command, configure as needed: bat 'scp target/*.jar JohnDoe@git-server:/path/to/deploy'
             }
         }
     }
@@ -59,16 +58,16 @@ pipeline {
     post {
         always {
             script {
-                // Save the current build log to a file
-                def logFile = new File("build_log.txt")
-                logFile.write(currentBuild.rawBuild.getLog(100).join("\n"))
-
-                // Send an email with the log file attached
+                // Saving the last 100 lines of the log to a temporary file
+                def logFile = "build-${env.BUILD_NUMBER}-log.txt"
+                writeFile file: logFile, text: currentBuild.rawBuild.getLog(100).join("\n")
+                
+                // Email with attachment
                 emailext (
                     subject: "${currentBuild.fullDisplayName} - Build #${currentBuild.number} - ${currentBuild.result}",
-                    body: "Please find the attached build log.",
+                    body: "Please find the build log attached.",
                     to: 'vibrant.subbedl@gmail.com',
-                    attachmentsPattern: "**/build_log.txt"
+                    attachmentsPattern: logFile
                 )
             }
         }
